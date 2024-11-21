@@ -1,0 +1,29 @@
+.main-footer {
+    @apply bg-gray-800;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0;
+    
+    .footer-logo {
+        padding: 1rem 0;
+        max-height: 200px;
+        max-width: 100%;
+        object-fit: contain;
+    }
+
+    .footer-verse {
+        padding: 1rem;
+        padding-top: 0;
+        text-align: center;
+    }
+
+    .footer-copyright {
+        @apply bg-gray-900;
+        padding: 1rem;
+        text-align: center;
+    }
+}
+

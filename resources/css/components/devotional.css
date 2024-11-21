@@ -1,0 +1,160 @@
+.devotional {
+    background-color: rgb(250, 251, 253);
+    position: relative;
+    overflow: hidden;
+
+    .devotional-container {
+        width: 100%;
+        margin: 0 auto;
+        padding: 1rem 0;
+    }
+
+    .headings {
+        margin-bottom: 3rem;
+
+        h1 {
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        
+        .heading-border {
+            background-color: rgb(184, 211, 218);
+            margin-left: 0;
+            margin-right: -1rem;
+            height: 0.5rem;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            position: relative;
+        
+            &::after {
+                content: '';
+                background-color: rgb(184, 211, 218);
+                position: absolute;
+                left: 100%;
+                width: 0.5rem;
+                bottom: 0;
+                height: 3.5rem;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                display: none
+            }
+        
+            @media screen and (min-width: 768px) {
+                margin-left: -1.5rem;
+                margin-right: calc(-1.5rem - 3rem);
+            }
+        
+            @media screen and (min-width: 1024px) {
+                &::after {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .devotional-text > *:not(:last-child):not(h1,h2,h3,h4) {
+        margin-bottom: 1rem;
+    }
+
+    .devotional-text > .verse-container:first-child {
+        margin-bottom: 3rem;
+    }
+
+    h1,
+    p {
+        color: rgb(24, 51, 58);
+    }
+
+    h2,
+    h3,
+    h4 {
+        color: rgb(54, 81, 88);
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 800;
+    }
+
+    h2 {
+        font-size: 1.333rem;
+        font-weight: 300;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h4 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    p {
+        line-height: 1.75rem;
+    }
+
+    hr {
+        width: 50px;
+        max-width: 100%;
+        border-color: rgb(94, 121, 128);
+    }
+
+    ol,
+    ul {
+        list-style: revert;
+        padding: revert;
+        margin: revert;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .devotional {
+        .devotional-container {
+            width: 90%;
+        }
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .devotional {
+        h1 {
+            font-size: 3rem;
+        }
+
+        h2 {
+            font-size: 1.333rem;
+        }
+
+        .devotional-container {
+            width: 75%;
+        }
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    .devotional {
+        h1 {
+            font-size: 3.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+        }
+
+        .devotional-container {
+            width: 50%;
+        }
+    }
+}

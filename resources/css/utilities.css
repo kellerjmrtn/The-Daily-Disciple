@@ -1,0 +1,58 @@
+@keyframes fadeInUp {
+    0% {
+        transform: translateY(0.5%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+.fade-in-up {
+    animation: 350ms fadeInUp;
+}
+
+@keyframes fadeRight {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.fade-right {
+    animation: 350ms fadeRight;
+}
+
+.bubble {
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px rgba(170, 170, 170, 0.5);
+    padding: 1rem;
+
+    &.bubble-dark {
+        box-shadow: 0px 0px 5px 1px rgba(100, 100, 100, 0.75);
+    }
+}
+
+.aboreto {
+    font-family: "Aboreto", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.martel {
+    font-family: "Martel", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.clear-right {
+    height: 0;
+    clear: right;
+}

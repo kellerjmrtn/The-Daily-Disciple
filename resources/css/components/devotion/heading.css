@@ -1,0 +1,41 @@
+.devotion-heading {
+    position: relative;
+    display: inline-block;
+    color: rgb(54, 81, 88);
+    scroll-margin-top: calc(56px + 1rem);
+
+    h3,
+    h4 {
+        margin: 0;
+    }
+
+    .heading-link {
+        position: absolute;
+        left: 0;
+        top: calc(50% - 1px);
+        transform: translateY(-50%);
+        display: none;
+
+        &:active {
+            color: rgb(4, 31, 37);
+        }
+
+        i {
+            height: 1rem;
+            width: 1rem;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .devotion-heading {
+        margin-left: -2rem;
+        padding-left: 2rem;
+
+        &:hover {
+            .heading-link {
+                display: block;
+            }
+        }
+    }
+}

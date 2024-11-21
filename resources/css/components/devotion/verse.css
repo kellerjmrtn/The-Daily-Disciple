@@ -1,0 +1,105 @@
+.verse-container {
+    margin: 1rem -1rem;
+    line-height: 1.75rem;
+    background-color: rgb(124, 151, 158, 0.075);
+    border-left: 5px solid rgb(124, 151, 158, 1);
+    padding: 0.75rem 1.5rem;
+    padding-left: calc(1rem - 5px);
+    position: relative;
+
+    span::after {
+        content: '"';
+        font-size: 10rem;
+        color: tan;
+        opacity: 0.75;
+        position: absolute;
+        right: 0;
+        top: -4rem;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .copy-text {
+        position: absolute;
+        border-radius: 100px;
+        background-color: rgba(124, 151, 158, 0.075);
+        padding: 0.75rem;
+        color: rgb(94, 121, 128);
+        font-size: 1rem;
+        line-height: 1rem;
+
+        i {
+            height: 1rem;
+            width: 1rem;
+        }
+
+        &:active {
+            background-color: rgba(124, 151, 158, 0.125);
+        }
+    }
+
+    .copy-text-container {
+        display: none;
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        height: calc(1rem + 1.5rem + 2rem);
+        width: calc(1rem + 2rem + 1.5rem);
+        transform: translateY(-50%);
+        padding: 1rem;
+    }
+
+    .verse-reference {
+        font-weight: bold;
+        color: rgb(94, 121, 128);
+        float: right;
+        padding-left: 2rem;
+        position: relative;
+
+        &::before {
+            content: '';
+            position: absolute;
+            width: calc(100% - 2rem);
+            height: 1px;
+            border-radius: 1px;
+            background-color: rgb(94, 121, 128);
+            bottom: 2px;
+            left: 2rem;
+            transform-origin: right;
+            transform: scaleX(0);
+            transition: transform .3s ease-in-out;
+        }
+    
+        &:hover {
+            color: rgb(84, 111, 118);
+            text-decoration: none;
+
+            &::before {
+                transform-origin: left;
+                transform: scaleX(1);
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .verse-container {
+        margin-left: calc(-5px - 1.5rem);
+        margin-right: -1.5rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .verse-container {
+        &:hover {
+            .copy-text-container {
+                display: block;
+            }
+    
+            .copy-text {
+                animation: 350ms fadeRight;
+            }
+        }
+    }
+}

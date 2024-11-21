@@ -1,3 +1,28 @@
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@import 'utilities.css';
+@import 'components/nav.css';
+@import 'components/footer.css';
+@import 'components/banner.css';
+@import 'components/devotional.css';
+@import 'components/devotion/verse.css';
+@import 'components/devotion/heading.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Override default container widths at certain screen sizes */
+.container {
+    width: calc(100% - 2rem);
+}
+
+@media screen and (min-width: 1920px) {
+    .container {
+        max-width: 1920px;
+    }
+}
+
+.main {
+    background: linear-gradient(180deg, rgba(248,249,255,1) 0%, rgba(248,249,255,1) 2rem, rgba(209,211,215,1) 100%); 
+}
