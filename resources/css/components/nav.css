@@ -7,6 +7,12 @@
         
     .nav-inner {
         transition: border 350ms ease;
+
+        .nav-link {
+            i + span {
+                margin-left: 0.25rem;
+            }
+        }
     }
 
     .nav-date {

@@ -31,7 +31,7 @@
 }
 
 .bubble {
-    border-radius: 5px;
+    border-radius: 20px;
     box-shadow: 0px 0px 5px 0px rgba(170, 170, 170, 0.5);
     padding: 1rem;
 
@@ -55,4 +55,33 @@
 .clear-right {
     height: 0;
     clear: right;
+}
+
+.bubble-break {
+    padding-left: 1rem;
+
+    .break-heading {
+        font-size: 1.5rem;
+        color: #334155;
+        font-weight: bold;
+        margin-bottom: -0.333rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .bubble-break {
+        text-align: center;
+
+        .break-heading {
+            font-size: 1.75rem;
+        }
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    .bubble-break {
+        .break-heading {
+            font-size: 2rem;
+        }
+    }
 }

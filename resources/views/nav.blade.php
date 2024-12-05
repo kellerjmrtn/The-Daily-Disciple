@@ -1,10 +1,10 @@
-<nav class="main-nav">
+<nav class="main-nav martel">
     <div class="nav-inner container mx-auto flex justify-between items-center py-4">
         <div>
             @if(!Route::is('index'))
                 <a href="{{ route('index') }}" class="nav-link">
-                    <i class="fa-solid fa-book"></i>
-                    Today's Reading
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Today</span>
                 </a>
             @else
                 <div class="nav-date">
@@ -15,12 +15,17 @@
             @endif
         </div>
         <div class="flex items-center space-x-4">
-            <a href="{{ route('devotions.index') }}" class="nav-link">All Devotions</a>
-            <a href="#" class="nav-link">
+            <a href="{{ route('devotions.index') }}" class="nav-link font-adjustment">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>
+                    All Devotions
+                </span>
+            </a>
+            <a href="#" class="nav-link test-lin">
                 <i class="fa-regular fa-user"></i>
-                <div class="hidden sm:inline">
+                <span class="hidden sm:inline">
                     Login
-                </div>
+                </span>
             </a>
         </div>
     </div>

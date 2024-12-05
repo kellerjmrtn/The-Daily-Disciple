@@ -5,6 +5,9 @@
 @import 'components/footer.css';
 @import 'components/banner.css';
 @import 'components/devotional.css';
+@import 'components/devotional-card-container.css';
+@import 'components/search.css';
+
 @import 'components/devotion/verse.css';
 @import 'components/devotion/heading.css';
 
@@ -20,6 +23,16 @@
 @media screen and (min-width: 1920px) {
     .container {
         max-width: 1920px;
+    }
+}
+
+/* Body background color determines "top bar" color near the notch on iOS */
+body {
+    background-color: rgba(248,249,255,1);
+    transition: all 350ms ease;
+
+    &.scrolled {
+        background-color: rgba(255, 255, 255, 0.85);
     }
 }
 

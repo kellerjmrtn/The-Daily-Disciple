@@ -1,0 +1,29 @@
+.search-container {
+    .search-form {
+        position: relative;
+        color: #365158;
+
+        .search-box {
+            width: 100%;
+            border-radius: 20px;
+            background-color: white;
+            height: 3rem;
+            padding: 0 1rem;
+            box-shadow: inset 0px 0px 5px 0px rgba(170, 170, 170, 0.5);
+            position: sticky;
+
+        }
+
+        .search-button {
+            position: absolute;
+            height: 100%;
+            padding: 0 1rem;
+            right: 0;
+
+            i {
+                height: 1rem;
+                width: 1rem;
+            }
+        }
+    }
+}
