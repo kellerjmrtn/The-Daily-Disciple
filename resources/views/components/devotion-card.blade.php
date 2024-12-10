@@ -1,12 +1,12 @@
 <a
-    href="{{ $link }}"
+    href="{{ $devotion->route }}"
     class="devotional-card bubble"
     >
     <div class="card-upper">
         <div class="card-top">
             <p class="date-container aboreto">
                 <span class="date">
-                    {{ $date->format('n / j / Y')}}
+                    {{ $devotion->date->format('n / j / Y')}}
                 </span>
                 @if ($isToday)
                     <span class="is-special-day today">Today</span>
@@ -27,15 +27,15 @@
         </div>
         <div class="card-middle">
             <div class="titles martel">
-                <h2 class="title">{{ $title }}</h2>
-                @if ($subtitle)
-                    <h3 class="subtitle">{{ $subtitle }}</h3>
+                <h2 class="title">{{ $devotion->title }}</h2>
+                @if ($devotion->subtitle)
+                    <h3 class="subtitle">{{ $devotion->subtitle }}</h3>
                 @elseif($scriptureReading)
                     <i class="subtitle">{{ $scriptureReading }}</i>
                 @endif
             </div>
             <div class="excerpt martel">
-                {!! $excerpt !!}
+                {!! $devotion->excerpt !!}
             </div>
             <button
                 class="go-to-link aboreto"

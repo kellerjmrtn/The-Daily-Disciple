@@ -2,12 +2,13 @@
 
 namespace App\View\Components;
 
+use App\Models\Devotion;
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class DevotionalCard extends Component
+class DevotionCard extends Component
 {
     public bool $isToday;
     public bool $isYesterday;
@@ -17,17 +18,13 @@ class DevotionalCard extends Component
      * Create a new component instance.
      */
     public function __construct(
-        public string $title,
-        public string $excerpt,
-        public string $link,
-        public Carbon $date,
-        public ?string $subtitle = null,
+        public Devotion $devotion,
         public ?string $scriptureReading = null,
         public bool $isPopular = false,
         public bool $isRecommended = false,
     ) {
-        $this->isToday = $this->date->isSameDay(Carbon::now()->setTimezone('America/New_York'));
-        $this->isYesterday = $this->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->subDay());
+        $this->isToday = $devotion->date->isSameDay(Carbon::now()->setTimezone('America/New_York'));
+        $this->isYesterday = $devotion->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->subDay());
         $this->hasIcons = $isPopular || $isRecommended;
     }
 
@@ -36,6 +33,6 @@ class DevotionalCard extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.devotional-card');
+        return view('components.devotion-card');
     }
 }

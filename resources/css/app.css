@@ -26,6 +26,11 @@
     }
 }
 
+/* This makes native links scroll smoothly on the page*/
+html {
+    scroll-behavior: smooth;
+}
+
 /* Body background color determines "top bar" color near the notch on iOS */
 body {
     background-color: rgba(248,249,255,1);

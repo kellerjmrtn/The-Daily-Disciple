@@ -6,24 +6,31 @@
     justify-content: center;
     flex-direction: column;
     padding: 0;
+    position: relative;
+
+    .footer-bottom {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        .footer-logo {
+            padding: 1rem 0;
+            max-height: 200px;
+            max-width: 100%;
+            object-fit: contain;
+        }
     
-    .footer-logo {
-        padding: 1rem 0;
-        max-height: 200px;
-        max-width: 100%;
-        object-fit: contain;
-    }
-
-    .footer-verse {
-        padding: 1rem;
-        padding-top: 0;
-        text-align: center;
-    }
-
-    .footer-copyright {
-        @apply bg-gray-900;
-        padding: 1rem;
-        text-align: center;
+        .footer-verse {
+            padding: 1rem;
+            padding-top: 0;
+            text-align: center;
+        }
+    
+        .footer-copyright {
+            @apply bg-gray-900;
+            padding: 1rem;
+            text-align: center;
+        }
     }
 }
 

@@ -1,27 +1,33 @@
 @extends('layouts.app')
 
+@section('navLeft')
+    <div class="nav-date">
+        {{ $devotion->date->format('F j, Y') }}
+        <span class="separator hidden md:inline-block"></span>
+        <strong class="hidden md:inline">{{ $devotion->title }}</strong>
+    </div>
+@endsection
+
 @section('content')
     <div class="container mx-auto">
         <div class="bubble fade-in-up mb-5 banner">
             <img src="{{ asset('assets/banner.jpg') }}" class="banner-img" />
             <div class="banner-text">
-                {{ Carbon\Carbon::now()->setTimezone('America/New_York')->format('F j, Y') }}
+                {{ $devotion->date->format('F j, Y') }}
             </div>
-            {{-- Temporarily remove banner-right, design may look better without it --}}
-            {{-- <div class="banner-right p-3 sm:p-6">
-                <h1 class="banner-h1 aboreto mb-1">Daily Devotional</h1>
-                <p class="martel">Connecting with Christ Through Daily Reflection</p>
-            </div> --}}
         </div>
         <div class="bubble my-5 devotional fade-in-up">
             <div class="devotional-container martel">
                 <div class="headings">
-                    <h1>The Power of Gratitude</h1>
-                    <h2>A Reflection on Living with a Thankful Heart</h2>
+                    <h1>{{ $devotion->title }}</h1>
+                    @if ($devotion->subtitle)
+                        <h2>{{ $devotion->subtitle }}</h2>
+                    @endif
                     <div class="heading-border"></div>
                 </div>
                 <div class="devotional-text">
-                    <x-devotion.verse
+                    {!! $devotion->content !!}
+                    {{-- <x-devotion.verse
                         link="https://www.biblegateway.com/passage/?search=1%20Thessalonians%205%3A18&version=NIV"
                         reference="1 Thessalonians 5:18"
                         version="NIV"
@@ -56,7 +62,7 @@
                         Enter his gates with thanksgiving and his courts with praise; give thanks to him and praise his name.
                     </x-devotion.verse>
                     <x-devotion.heading heading="Prayer" />
-                    <p>Heavenly Father, thank You for Your abundant blessings. Teach us to have grateful hearts in all circumstances. Help us to see Your goodness even in difficult times, and may our gratitude be a witness to Your love and faithfulness. In Jesus’ name, Amen.</p>
+                    <p>Heavenly Father, thank You for Your abundant blessings. Teach us to have grateful hearts in all circumstances. Help us to see Your goodness even in difficult times, and may our gratitude be a witness to Your love and faithfulness. In Jesus’ name, Amen.</p> --}}
                 </div>
             </div>
         </div>
@@ -64,7 +70,10 @@
             <h2 class="break-heading martel">Continue Reading</h2>
         </div>
         <div class="devotional-card-container my-5 fade-in-up slider">
-            <x-devotional-card
+            @foreach ($continueReading as $devotional)
+                <x-devotion-card :devotion="$devotional" />
+            @endforeach
+            {{-- <x-devotional-card
                 title="The Power of Gratitude"
                 subtitle="A Reflection on Living with a Thankful Heart"
                 excerpt="<p>In a world filled with distractions and challenges, it’s easy to overlook the blessings in our lives. Gratitude is more than just saying 'thank you'—it is an attitude of the heart, a lens through which we see God's faithfulness. Today, let us reflect on the importance of cultivating gratitude in every season, whether in times of abundance or adversity.</p><p>Gratitude shifts our focus from what we lack to what we have. It opens our eyes to the countless ways God works in our lives daily. When we choose to give thanks, we align our hearts with His will, allowing His peace to dwell within us.</p>"
@@ -108,7 +117,7 @@
                 :date="Carbon\Carbon::now()->subDays(5)->setTimezone('America/New_York')"
                 isPopular="true"
                 isRecommended="true"
-            />
+            /> --}}
         </div>
     </div>
 @endsection
