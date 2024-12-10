@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDevotionRequest;
 use App\Http\Requests\UpdateDevotionRequest;
 use App\Models\Devotion;
 use App\Services\DevotionService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
@@ -15,11 +16,14 @@ class DevotionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(DevotionService $devotionService)
+    public function index(DevotionService $devotionService, Request $request)
     {
+        $searchQuery = $request->query('search');
+
         // Public route, no perms check needed
         return view('devotions.index', [
-            'devotions' => $devotionService->getPaginatedIndex(24),
+            'devotions' => $devotionService->getSearchQuery($searchQuery)->paginate(24),
+            'initialSearchValue' => $searchQuery,
         ]);
     }
 

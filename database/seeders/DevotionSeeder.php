@@ -15,7 +15,7 @@ class DevotionSeeder extends Seeder
     {
         Devotion::factory(30)->create();
 
-        // Create a devotion for today and yesterday, if they don't yet exist
+        // Create a devotion for today, yesterday, and tomorrow if they don't yet exist
         if (!Devotion::whereDate('date', Carbon::now())->first()) {
             Devotion::factory(1)->create([
                 'date' => Carbon::now(),
@@ -25,6 +25,13 @@ class DevotionSeeder extends Seeder
         if (!Devotion::whereDate('date', Carbon::now()->subDay())->first()) {
             Devotion::factory(1)->create([
                 'date' => Carbon::now()->subDay(),
+            ]);
+        }
+
+        if (!Devotion::whereDate('date', Carbon::now()->addDay())->first()) {
+            Devotion::factory(1)->create([
+                'date' => Carbon::now()->addDay(),
+                'status' => 'published',
             ]);
         }
     }

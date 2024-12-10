@@ -93,6 +93,10 @@
             }
         }
     }
+
+    .no-results {
+        grid-column: 1/-1;
+    }
 }
 
 .devotional-card {

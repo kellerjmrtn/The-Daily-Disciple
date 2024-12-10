@@ -10,11 +10,13 @@
 @section('content')
     <div class="container mx-auto">
         <div class="search-container mb-5 martel">
-            <form action="#" class="search-form">
+            <form action="" method="GET" class="search-form">
                 <input
                     type="text"
                     class="search-box"
                     placeholder="Search"
+                    name="search"
+                    value="{{ $initialSearchValue }}"
                 />
                 <button class="search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
@@ -22,14 +24,18 @@
             </form>
         </div>
         <div class="mb-5 devotional-card-container fade-in-up">
-            @foreach ($devotions as $devotion)
+            @forelse ($devotions as $devotion)
                 <x-devotion-card :devotion="$devotion" />
-            @endforeach
+            @empty
+                <div class="no-results bubble bg-gray-100 martel text-center">
+                    No results
+                </div>
+            @endforelse
         </div>
 
         @if (method_exists($devotions, 'links') && $devotions->hasPages())
             <div class="bubble my-5 bg-gray-100 martel">
-                {{ $devotions->links() }}
+                {{ $devotions->withQueryString()->links() }}
             </div>
         @endif
     </div>
