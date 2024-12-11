@@ -52,25 +52,29 @@ class DevotionService
             ->paginate($perPage);
     }
 
+    /**
+     * Get a basic search query for devotions
+     *
+     * @param string|null $search
+     * @return Builder
+     */
     public function getSearchQuery(?string $search = null): Builder
     {
-        return Devotion::visible()
-            ->when($search, function (Builder $query) use ($search) {
-                $query->where(function (Builder $inner) use ($search) {
-                    // First apply text searches
-                    $inner->where('title', 'like', "%$search%")
-                        ->orWhere('subtitle', 'like', "%$search%");
+        return Devotion::when($search, function (Builder $query) use ($search) {
+            $query->where(function (Builder $inner) use ($search) {
+                // First apply text searches
+                $inner->where('title', 'like', "%$search%")
+                    ->orWhere('subtitle', 'like', "%$search%");
 
-                    // Then apply date search, if applicable
-                    try {
-                        $date = Carbon::parse($search);
+                // Then apply date search, if applicable
+                try {
+                    $date = Carbon::parse($search);
 
-                        $inner->orWhereDate('date', $date);
-                    } catch (Throwable $e) {
-                        // Do nothing
-                    }
-                });
-            })
-            ->orderBy('date', 'desc');
+                    $inner->orWhereDate('date', $date);
+                } catch (Throwable $e) {
+                    // Do nothing
+                }
+            });
+        })->orderBy('date', 'desc');
     }
 }

@@ -10,10 +10,14 @@
                     All Devotions
                 </span>
             </a>
-            <a href="#" class="nav-link test-lin">
+            <a href="{{ route('dashboard') }}" class="nav-link test-lin">
                 <i class="fa-regular fa-user"></i>
                 <span class="hidden sm:inline">
-                    Login
+                    @auth
+                        {{ Auth::user()->name }}
+                    @else
+                        Login
+                    @endauth
                 </span>
             </a>
         </div>

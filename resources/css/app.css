@@ -11,6 +11,8 @@
 @import 'components/devotion/verse.css';
 @import 'components/devotion/heading.css';
 
+@import 'components/dashboard/dashboard.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

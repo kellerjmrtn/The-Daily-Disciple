@@ -13,7 +13,7 @@
             <form action="" method="GET" class="search-form">
                 <input
                     type="text"
-                    class="search-box"
+                    class="search-box border-gray-200"
                     placeholder="Search"
                     name="search"
                     value="{{ $initialSearchValue }}"

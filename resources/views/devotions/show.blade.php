@@ -16,6 +16,11 @@
                 {{ $devotion->date->format('F j, Y') }}
             </div>
         </div>
+        @if (!$devotion->isVisible())
+            <div class="bubble my-5 bg-yellow-100 text-yellow-700 p-4 martel">
+                Warning: This devotion is not publicly visible
+            </div>
+        @endif
         <div class="bubble my-5 devotional fade-in-up">
             <div class="devotional-container martel">
                 <div class="headings">

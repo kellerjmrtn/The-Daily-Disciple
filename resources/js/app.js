@@ -1,5 +1,11 @@
 import './bootstrap';
 
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();
+
 const checkScrolled = (element) => {
     if (window.scrollY > 0) {
         document.body.classList.add('scrolled');

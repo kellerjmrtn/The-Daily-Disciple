@@ -22,7 +22,7 @@ class DevotionController extends Controller
 
         // Public route, no perms check needed
         return view('devotions.index', [
-            'devotions' => $devotionService->getSearchQuery($searchQuery)->paginate(24),
+            'devotions' => $devotionService->getSearchQuery($searchQuery)->visible()->paginate(24),
             'initialSearchValue' => $searchQuery,
         ]);
     }

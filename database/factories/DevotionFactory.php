@@ -20,6 +20,8 @@ class DevotionFactory extends Factory
     {
         $title = Str::title($this->faker->words(rand(2, 4), true));
         $date = $this->faker->unique()->date('Y-m-d', '+2 weeks');
+
+        // Create $num fake paragraphs as content
         $content = '';
         $num = rand(4, 15);
 

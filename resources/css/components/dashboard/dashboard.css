@@ -1,0 +1,7 @@
+.devotions-table {
+    tbody {
+        tr:last-of-type {
+            border-bottom: none;
+        }
+    }
+}
