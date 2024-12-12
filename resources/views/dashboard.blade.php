@@ -40,6 +40,7 @@
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Subtitle</th>
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Date</th>
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Status</th>
+                                <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Views</th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -53,6 +54,7 @@
                                     <td class="py-3 px-4">{{ $devotion->subtitle }}</td>
                                     <td class="py-3 px-4">{{ $devotion->date->format('n/j/Y') }}</td>
                                     <td class="py-3 px-4">{{ $devotion->status }}</td>
+                                    <td class="py-3 px-4">{{ $devotion->view_count }}</td>
                                     <td class="py-3 px-4 text-gray-900">
                                         <a
                                             href="{{ route('devotions.show', ['devotion' => $devotion]) }}"

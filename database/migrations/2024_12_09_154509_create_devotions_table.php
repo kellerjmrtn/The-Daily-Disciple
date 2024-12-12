@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date')->unique();
             $table->enum('status', ['published', 'unpublished', 'draft']);
             $table->string('slug')->unique();
+            $table->unsignedInteger('view_count')->default(0);
             $table->timestamps();
         });
     }
