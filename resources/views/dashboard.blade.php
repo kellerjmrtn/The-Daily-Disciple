@@ -49,7 +49,19 @@
                     
                         <tbody>
                             @forelse($devotions as $devotion)
-                                <tr class="border-b hover:bg-gray-50">
+                                <tr class="border-b
+                                    @if ($devotion->isToday)
+                                        @if ($devotion->status === 'published')
+                                            bg-green-100 hover:bg-green-200
+                                        @else
+                                            bg-red-100 hover:bg-red-200
+                                        @endif
+                                    @elseif($devotion->isTomorrow && $devotion->status !== 'published')
+                                        bg-yellow-100 hover:bg-yellow-200
+                                    @else
+                                        bg-white hover:bg-gray-100
+                                    @endif"
+                                >
                                     <td class="py-3 px-4">{{ $devotion->title }}</td>
                                     <td class="py-3 px-4">{{ $devotion->subtitle }}</td>
                                     <td class="py-3 px-4">{{ $devotion->date->format('n/j/Y') }}</td>

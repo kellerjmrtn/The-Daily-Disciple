@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Devotion extends Model
 {
@@ -17,6 +18,16 @@ class Devotion extends Model
     protected $casts = [
         'date' => 'date',
     ];
+
+    /**
+     * The devotion's main verse
+     *
+     * @return HasOne
+     */
+    public function verse(): HasOne
+    {
+        return $this->hasOne(Verse::class);
+    }
 
     /**
      * Get the route key for the model.
@@ -59,6 +70,42 @@ class Devotion extends Model
     {
         return Attribute::make(
             get: fn () => route('devotions.show', ['devotion' => $this]),
+        );
+    }
+
+    /**
+     * Is this today's devotion?
+     *
+     * @return Attribute
+     */
+    public function isToday(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->date->isSameDay(Carbon::now()->setTimezone('America/New_York')),
+        );
+    }
+
+    /**
+     * Is this yesterday's devotion?
+     *
+     * @return Attribute
+     */
+    public function isYesterday(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->subDay()),
+        );
+    }
+
+    /**
+     * Is this tomorrow's devotion?
+     *
+     * @return Attribute
+     */
+    public function isTomorrow(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->addDay()),
         );
     }
 

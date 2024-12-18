@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Devotion;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class StoreDevotionRequest extends FormRequest
 {
@@ -11,7 +14,7 @@ class StoreDevotionRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::forUser($this->user())->allows('create', Devotion::class);
     }
 
     /**
@@ -22,7 +25,15 @@ class StoreDevotionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-        ];
+            'title' => ['required', 'string', 'max:255', Rule::unique(Devotion::class, 'title')],
+            'subtitle' => ['nullable', 'string', 'max:255'],
+            'content' => ['required', 'string'],
+            'date' => ['required', 'date', Rule::unique(Devotion::class, 'date')],
+            'status' => ['required', Rule::in(['published', 'unpublished', 'draft'])],
+            'verse-text' => ['nullable', 'string'],
+            'verse-reference' => ['nullable', 'string', 'max:255', 'required_with:verse-text'],
+            'verse-link' => ['nullable', 'string', 'required_with:verse-text'],
+            'verse-version' => ['nullable', 'string', 'max:255', 'required_with:verse-text'],
+        ];        
     }
 }

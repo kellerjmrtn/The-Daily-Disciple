@@ -30,6 +30,15 @@
                     @endif
                     <div class="heading-border"></div>
                 </div>
+                @if ($devotion->verse)
+                    <x-devotion.verse
+                        :link="$devotion->verse->link"
+                        :reference="$devotion->verse->reference"
+                        :version="$devotion->verse->version"
+                    >
+                        {{ $devotion->verse->text }}
+                    </x-devotion.verse>
+                @endif
                 <div class="devotional-text">
                     {!! $devotion->content !!}
                     {{-- <x-devotion.verse
