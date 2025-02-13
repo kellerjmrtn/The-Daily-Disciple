@@ -23,7 +23,7 @@ class DevotionCard extends Component
     ) {
         $this->isToday = $devotion->date->isSameDay(Carbon::now()->setTimezone('America/New_York'));
         $this->isYesterday = $devotion->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->subDay());
-        $this->hasIcons = $devotion->isPopular || $devotion->isRecommended;
+        $this->hasIcons = $devotion->isPopular || $devotion->is_recommended;
     }
 
     /**

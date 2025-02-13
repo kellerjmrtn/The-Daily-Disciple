@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Devotion;
-use App\Models\Verse;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -95,43 +94,10 @@ class DevotionService
         $devotion->content = $data['content'];
         $devotion->date = $data['date'];
         $devotion->status = $data['status'];
+        $devotion->is_recommended = $data['is_recommended'] ?? false;
         $devotion->slug = Str::slug($devotion->title);
 
         $devotion->save();
-
-        return $devotion;
-    }
-
-    /**
-     * Attach the given verse with the given data to the given devotion
-     *
-     * @param Devotion $devotion
-     * @param Verse $verse
-     * @param array $data
-     * @return Verse
-     */
-    public function attachVerse(Devotion $devotion, Verse $verse, array $data): Verse
-    {
-        $verse->text = $data['text'];
-        $verse->reference = $data['reference'];
-        $verse->link = $data['link'];
-        $verse->version = $data['version'];
-        $verse->devotion()->associate($devotion);
-
-        $verse->save();
-
-        return $verse;
-    }
-
-    /**
-     * Remove all verses (currently only one) from the devotion
-     *
-     * @param Devotion $devotion
-     * @return Devotion
-     */
-    public function detatchVerses(Devotion $devotion): Devotion
-    {
-        $devotion->verse()->delete();
 
         return $devotion;
     }
@@ -145,8 +111,6 @@ class DevotionService
     public function destroy(Devotion $devotion): void
     {
         DB::transaction(function () use ($devotion) {
-            $this->detatchVerses($devotion);
-
             $devotion->delete();
         });
     }
@@ -159,7 +123,8 @@ class DevotionService
      */
     public function getPopular(int $count = 3): Collection
     {
-        return Devotion::whereDate('date', '>=', Carbon::now()->subMonth())
+        return Devotion::visible()
+            ->whereDate('date', '>=', Carbon::now()->subMonth())
             ->orderBy('view_count', 'desc')
             ->orderBy('date', 'desc')
             ->take($count)

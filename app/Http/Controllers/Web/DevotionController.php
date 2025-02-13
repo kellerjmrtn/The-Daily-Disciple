@@ -7,7 +7,6 @@ use App\Http\Controllers\Traits\UpdatesViewCount;
 use App\Http\Requests\StoreDevotionRequest;
 use App\Http\Requests\UpdateDevotionRequest;
 use App\Models\Devotion;
-use App\Models\Verse;
 use App\Services\DevotionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,18 +51,6 @@ class DevotionController extends Controller
 
         DB::transaction(function () use ($devotionService, $data) {
             $devotion = $devotionService->save(new Devotion(), $data);
-    
-            // If verse-text is filled out, a verse has been entered and we should save it
-            if (empty($data['verse-text'])) {
-                return;
-            }
-
-            $devotionService->attachVerse($devotion, new Verse(), [
-                'text' => $data['verse-text'],
-                'reference' => $data['verse-reference'],
-                'link' => $data['verse-link'],
-                'version' => $data['verse-version'],
-            ]);
         });
 
         // Redirect to the devotions index with a success message
@@ -115,20 +102,6 @@ class DevotionController extends Controller
 
         DB::transaction(function () use ($devotionService, $data, $devotion) {
             $devotion = $devotionService->save($devotion, $data);
-
-            $devotionService->detatchVerses($devotion);
-
-            // If verse-text is filled out, a verse has been entered and we should save it
-            if (empty($data['verse-text'])) {
-                return;
-            }
-    
-            $devotionService->attachVerse($devotion, new Verse(), [
-                'text' => $data['verse-text'],
-                'reference' => $data['verse-reference'],
-                'link' => $data['verse-link'],
-                'version' => $data['verse-version'],
-            ]);
         });
 
         // Redirect to the devotions index with a success message

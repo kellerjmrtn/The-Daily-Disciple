@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status', ['published', 'unpublished', 'draft']);
             $table->string('slug')->unique();
             $table->unsignedInteger('view_count')->default(0);
+            $table->boolean('is_recommended')->default(false);
             $table->timestamps();
         });
     }

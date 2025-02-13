@@ -19,7 +19,7 @@
                     @if ($devotion->isPopular)
                         <i class="fa-solid fa-chart-simple"></i>
                     @endif
-                    @if ($devotion->isRecommended)
+                    @if ($devotion->is_recommended)
                         <i class="fa-solid fa-circle-check"></i>
                     @endif
                 </div>

@@ -42,6 +42,8 @@ class DevotionFactory extends Factory
                 array_fill(0, 1, Status::DRAFT),
             )),
             'slug' => Str::slug($title),
+            'is_recommended' => $this->faker->boolean(15),
+            'view_count' => $this->faker->numberBetween(0, 20),
         ];
     }
 }

@@ -80,6 +80,21 @@
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>
+
+        <div class="flex items-center sm:items-start sm:flex-col gap-x-3">
+            <label for="is_recommended" class="block text-gray-700 font-medium sm:mb-2">Recommended</label>
+            <input
+                type="checkbox"
+                id="is_recommended"
+                name="is_recommended"
+                value="1"
+                {{ old('is_recommended', $devotion->is_recommended ?? false) ? 'checked' : '' }}
+                class="rounded border-gray-300"
+            />
+            @error('is_recommended')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
     </div>
 
     @isset($submit)

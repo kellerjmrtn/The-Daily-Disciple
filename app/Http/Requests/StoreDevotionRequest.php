@@ -31,10 +31,7 @@ class StoreDevotionRequest extends FormRequest
             'content' => ['required', 'string'],
             'date' => ['required', 'date', Rule::unique(Devotion::class, 'date')],
             'status' => ['required', Rule::in(['published', 'unpublished', 'draft'])],
-            'verse-text' => ['nullable', 'string'],
-            'verse-reference' => ['nullable', 'string', 'max:255', 'required_with:verse-text'],
-            'verse-link' => ['nullable', 'string', 'required_with:verse-text'],
-            'verse-version' => ['nullable', 'string', 'max:255', 'required_with:verse-text'],
+            'is_recommended' => ['nullable', 'boolean'],
         ];        
     }
 

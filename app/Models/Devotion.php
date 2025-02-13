@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Devotion extends Model
 {
@@ -19,16 +18,6 @@ class Devotion extends Model
     protected $casts = [
         'date' => 'date',
     ];
-
-    /**
-     * The devotion's main verse
-     *
-     * @return HasOne
-     */
-    public function verse(): HasOne
-    {
-        return $this->hasOne(Verse::class);
-    }
 
     /**
      * Get the route key for the model.
