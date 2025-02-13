@@ -10,6 +10,7 @@ use DOMNode;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\View\Component;
+use Throwable;
 
 class RenderDevotion extends Component
 {
@@ -64,14 +65,27 @@ class RenderDevotion extends Component
     {
         if (preg_match('/^h[3-4]$/i', $node->nodeName)) {
             return Blade::renderComponent(
-                new Heading($node->textContent, $node->nodeName, $this->withoutFormatting),
+                Heading::resolve([
+                    'heading' => $node->textContent,
+                    'tag' => $node->nodeName,
+                    'withoutFormatting' => $this->withoutFormatting,
+                ]),
             );
         } elseif ($node->nodeName === 'pre') {
-            $split = array_map('trim', explode("\n", trim($node->textContent)));
-
-            return Blade::renderComponent(
-                (new Verse($split[0], $split[1], $split[2], $split[3], $this->withoutFormatting)),
-            );
+            try {
+                $split = array_map('trim', explode("\n", trim($node->textContent)));
+    
+                return Blade::renderComponent(
+                    Verse::resolve([
+                        'text' => $split[0],
+                        'reference' => $split[1],
+                        'version' => $split[2],
+                        'withoutFormatting' => $this->withoutFormatting,
+                    ]),
+                );
+            } catch (Throwable $e) {
+                // If error due to bad formatting, continue on and render as simple HTML
+            }
         }
         
         // If no special case, return the base HTML
