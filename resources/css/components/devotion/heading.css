@@ -1,4 +1,4 @@
-.devotion-heading {
+.devotion-heading-container {
     position: relative;
     display: inline-block;
     color: rgb(54, 81, 88);
@@ -6,8 +6,7 @@
     /* This accounts for the nav height plus some padding */
     scroll-margin-top: calc(3.5rem + 1rem);
 
-    h3,
-    h4 {
+    .devotion-heading {
         margin: 0;
     }
 
@@ -30,7 +29,7 @@
 }
 
 @media screen and (min-width: 768px) {
-    .devotion-heading {
+    .devotion-heading-container {
         margin-left: -2rem;
         padding-left: 2rem;
 

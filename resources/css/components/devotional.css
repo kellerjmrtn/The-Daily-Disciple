@@ -6,7 +6,6 @@
     .devotional-container {
         width: 100%;
         margin: 0 auto;
-        padding: 1rem 0;
     }
 
     .headings {
@@ -58,8 +57,12 @@
         }
     }
 
-    .devotional-text > *:not(:last-child):not(h1,h2,h3,h4) {
+    .devotional-text > *:not(:last-child):not(blockquote) {
         margin-bottom: 1rem;
+
+        &:empty {
+            margin-bottom: 0;
+        }
     }
 
     .devotional-text > .verse-container:first-child {
@@ -73,7 +76,9 @@
 
     h2,
     h3,
-    h4 {
+    h4,
+    h5,
+    h6 {
         color: rgb(54, 81, 88);
     }
 
@@ -95,10 +100,20 @@
     }
 
     h4 {
-        font-size: 1rem;
+        font-size: 1.125rem;
         font-weight: 700;
         margin-top: 2rem;
         margin-bottom: 0.5rem;
+    }
+
+    h5 {
+        font-size: 1.0875rem;
+        font-weight: 700;
+    }
+
+    h6 {
+        font-size: 1rem;
+        font-weight: 700;
     }
 
     p {
@@ -117,12 +132,53 @@
         padding: revert;
         margin: revert;
     }
+
+    blockquote:not(.verse-container) {
+        margin: 2rem -1rem;
+        line-height: 1.75rem;
+        padding: 0.75rem 1rem;
+        position: relative;
+        text-align: center;
+        border-top: 1px solid rgb(94, 121, 128);
+        border-bottom: 1px solid rgb(94, 121, 128);
+        border-image: linear-gradient(to right, transparent 10%, rgb(94, 121, 128) 50%, transparent 90%) 100% 1;
+        font-style: italic;
+
+        @media screen and (min-width: 768px) {
+            margin: 2rem -1.5rem;
+            padding: 0.75rem 52px;
+
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0px;
+                bottom: 0;
+                width: 52px;
+                filter: opacity(10%);
+                background-repeat: no-repeat;
+            }
+            
+            &::before {
+                background-image: url('/public/assets/open-quote.svg');
+                background-position: top;
+                left: 0;
+            }
+
+            &::after {
+                background-image: url('/public/assets/close-quote.svg');
+                background-position: bottom;
+                right: 0;
+            }
+        }
+    }
 }
 
 @media screen and (min-width: 768px) {
     .devotional {
         .devotional-container {
             width: 90%;
+            padding: 1rem 0;
         }
     }
 }

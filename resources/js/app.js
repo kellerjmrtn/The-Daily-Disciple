@@ -2,6 +2,8 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
+import initCustomQuill from './quill/init';
+
 window.Alpine = Alpine;
 
 Alpine.start();
@@ -193,3 +195,8 @@ window.addEventListener('resize', () => {
         resize(container);
     });
 })
+
+// Initialize quill on any quill inputs on the page
+document.addEventListener('DOMContentLoaded', () => {
+    initCustomQuill();
+});

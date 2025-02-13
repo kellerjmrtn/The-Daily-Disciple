@@ -150,4 +150,19 @@ class DevotionService
             $devotion->delete();
         });
     }
+
+    /**
+     * Get a Collection of "popular" Devotions
+     *
+     * @param integer $count
+     * @return Collection
+     */
+    public function getPopular(int $count = 3): Collection
+    {
+        return Devotion::whereDate('date', '>=', Carbon::now()->subMonth())
+            ->orderBy('view_count', 'desc')
+            ->orderBy('date', 'desc')
+            ->take($count)
+            ->get();
+    }
 }

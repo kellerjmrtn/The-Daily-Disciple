@@ -20,12 +20,10 @@ class DevotionCard extends Component
     public function __construct(
         public Devotion $devotion,
         public ?string $scriptureReading = null,
-        public bool $isPopular = false,
-        public bool $isRecommended = false,
     ) {
         $this->isToday = $devotion->date->isSameDay(Carbon::now()->setTimezone('America/New_York'));
         $this->isYesterday = $devotion->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->subDay());
-        $this->hasIcons = $isPopular || $isRecommended;
+        $this->hasIcons = $devotion->isPopular || $devotion->isRecommended;
     }
 
     /**

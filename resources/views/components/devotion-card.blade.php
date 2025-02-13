@@ -16,10 +16,10 @@
             </p>
             @if ($hasIcons)
                 <div class="icons">
-                    @if ($isPopular)
+                    @if ($devotion->isPopular)
                         <i class="fa-solid fa-chart-simple"></i>
                     @endif
-                    @if ($isRecommended)
+                    @if ($devotion->isRecommended)
                         <i class="fa-solid fa-circle-check"></i>
                     @endif
                 </div>
@@ -34,9 +34,7 @@
                     <i class="subtitle">{{ $scriptureReading }}</i>
                 @endif
             </div>
-            <div class="excerpt martel">
-                {!! $devotion->excerpt !!}
-            </div>
+            <x-render-devotion class="excerpt martel" :html="$devotion->excerpt" withoutFormatting />
             <button
                 class="go-to-link aboreto"
             >

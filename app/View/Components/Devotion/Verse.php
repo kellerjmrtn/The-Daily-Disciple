@@ -11,8 +11,13 @@ class Verse extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $link, public string $reference, public string $version)
-    {
+    public function __construct(
+        public readonly string $text,
+        public readonly string $reference,
+        public readonly string $version,
+        public readonly string $link,
+        public readonly bool $withoutFormatting = false,
+    ) {
         //
     }
 

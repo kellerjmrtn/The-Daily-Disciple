@@ -16,6 +16,8 @@
         {{-- Dev only for HTTP requests --}}
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
+        @stack('stylesheets')
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
@@ -51,5 +53,7 @@
                 {{ $slot }}
             </main>
         </div>
+
+        @stack('scripts')
     </body>
 </html>

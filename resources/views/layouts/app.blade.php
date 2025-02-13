@@ -23,11 +23,13 @@
         
         {{-- Dev only for HTTP requests --}}
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-      
+
+        @stack('stylesheets')
+        
         <!-- Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
             @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @endif
+            @endif
     </head>
     <body>
         <div class="main">
@@ -36,8 +38,10 @@
             <div class="content">
                 @yield('content')
             </div>
-
+            
             @include('footer')
         </div>
+        
+        @stack('scripts')
     </body>
 </html>

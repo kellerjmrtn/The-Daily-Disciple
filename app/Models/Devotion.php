@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\Status;
+use App\Services\DevotionService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -106,6 +107,18 @@ class Devotion extends Model
     {
         return Attribute::make(
             get: fn () => $this->date->isSameDay(Carbon::now()->setTimezone('America/New_York')->addDay()),
+        );
+    }
+
+    /**
+     * Is this devotion popular?
+     *
+     * @return Attribute
+     */
+    public function isPopular(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => app(DevotionService::class)->getPopular(3)->contains($this),
         );
     }
 

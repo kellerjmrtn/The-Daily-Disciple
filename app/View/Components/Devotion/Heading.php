@@ -19,8 +19,16 @@ class Heading extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $heading)
-    {
+    public function __construct(
+        public readonly string $heading,
+        public string $tag,
+        public readonly bool $withoutFormatting = false,
+    ) {
+        // Validate tag. If invalid, default to h3
+        $this->tag = preg_match('/^h[1-6]$/i', $tag)
+            ? $tag
+            : 'h3';
+
         $this->urlHeading = Str::slug(trim($heading));
     }
 
