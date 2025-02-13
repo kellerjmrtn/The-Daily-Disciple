@@ -6,6 +6,7 @@ use App\Models\Devotion;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
+use Mews\Purifier\Facades\Purifier;
 
 class UpdateDevotionRequest extends FormRequest
 {
@@ -37,5 +38,17 @@ class UpdateDevotionRequest extends FormRequest
             'verse-link' => ['nullable', 'string', 'required_with:verse-text'],
             'verse-version' => ['nullable', 'string', 'max:255', 'required_with:verse-text'],
         ]; 
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'content' => Purifier::clean($this->get('content')),
+        ]);
     }
 }

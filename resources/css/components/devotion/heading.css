@@ -1,6 +1,6 @@
 .devotion-heading-container {
     position: relative;
-    display: inline-block;
+    display: block;
     color: rgb(54, 81, 88);
     
     /* This accounts for the nav height plus some padding */
