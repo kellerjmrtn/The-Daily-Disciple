@@ -11,7 +11,7 @@
                 </span>
             </a>
             <a href="{{ route('dashboard') }}" class="nav-link test-lin">
-                <i class="fa-regular fa-user"></i>
+                <i class="fa-solid fa-user"></i>
                 <span class="hidden sm:inline">
                     @auth
                         {{ Auth::user()->name }}
