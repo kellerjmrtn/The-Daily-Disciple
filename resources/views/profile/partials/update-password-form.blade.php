@@ -40,7 +40,7 @@
                     x-show="show"
                     x-transition
                     x-init="setTimeout(() => show = false, 10000)"
-                    class="text-sm text-gray-600"
+                    class="text-sm text-green-600"
                 >{{ __('Your password has been updated.') }}</p>
             @endif
         </div>
