@@ -39,13 +39,15 @@
                 <x-render-devotion class="devotional-text" :html="$devotion->content" />
             </div>
         </div>
-        <div class="bubble-break fade-in-up">
-            <h2 class="break-heading martel">Continue Reading</h2>
-        </div>
-        <div class="devotional-card-container my-5 fade-in-up slider">
-            @foreach ($continueReading as $devotional)
-                <x-devotion-card :devotion="$devotional" />
-            @endforeach
-        </div>
+        @if (!empty($continueReading))
+            <div class="bubble-break fade-in-up">
+                <h2 class="break-heading martel">Continue Reading</h2>
+            </div>
+            <div class="devotional-card-container my-5 fade-in-up slider">
+                @foreach ($continueReading as $devotional)
+                    <x-devotion-card :devotion="$devotional" />
+                @endforeach
+            </div>
+        @endif
     </div>
 @endsection
