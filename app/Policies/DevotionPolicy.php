@@ -40,6 +40,10 @@ class DevotionPolicy
      */
     public function update(User $user, Devotion $devotion): bool
     {
+        if ($user->hasPermissionTo('devotions.update.own') && $user->id === $devotion->user_id) {
+            return true;
+        }
+
         return $user->hasPermissionTo('devotions.update.any');
     }
 
@@ -48,6 +52,10 @@ class DevotionPolicy
      */
     public function delete(User $user, Devotion $devotion): bool
     {
+        if ($user->hasPermissionTo('devotions.delete.own') && $user->id === $devotion->user_id) {
+            return true;
+        }
+
         return $user->hasPermissionTo('devotions.delete.any');
     }
 
@@ -56,6 +64,10 @@ class DevotionPolicy
      */
     public function restore(User $user, Devotion $devotion): bool
     {
+        if ($user->hasPermissionTo('devotions.update.own') && $user->id === $devotion->user_id) {
+            return true;
+        }
+
         return $user->hasPermissionTo('devotions.update.any');
     }
 
@@ -64,6 +76,10 @@ class DevotionPolicy
      */
     public function forceDelete(User $user, Devotion $devotion): bool
     {
+        if ($user->hasPermissionTo('devotions.delete.own') && $user->id === $devotion->user_id) {
+            return true;
+        }
+
         return $user->hasPermissionTo('devotions.delete.any');
     }
 }

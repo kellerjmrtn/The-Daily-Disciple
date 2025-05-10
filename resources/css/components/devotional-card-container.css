@@ -205,6 +205,8 @@
 
     .date-container {
         display: inline-flex;
+        flex-direction: column;
+        gap: 0.5rem;
 
         .date {
             font-weight: bold;
@@ -229,6 +231,12 @@
                 content: '\2022';
                 margin: 0 0.5rem;
             }
+        }
+
+        .author-container {
+            font-size: 0.85rem;
+            color: rgb(54, 81, 88);
+            letter-spacing: 1px;
         }
     }
 

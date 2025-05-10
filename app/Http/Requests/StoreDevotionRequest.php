@@ -32,6 +32,7 @@ class StoreDevotionRequest extends FormRequest
             'date' => ['required', 'date', Rule::unique(Devotion::class, 'date')],
             'status' => ['required', Rule::in(['published', 'unpublished', 'draft'])],
             'is_recommended' => ['nullable', 'boolean'],
+            'user_id' => ['required', Rule::exists('users', 'id')],
         ];        
     }
 

@@ -5,13 +5,18 @@
     <div class="card-upper">
         <div class="card-top">
             <p class="date-container aboreto">
-                <span class="date">
-                    {{ $devotion->date->format('n / j / Y')}}
+                <span>
+                    <span class="date">
+                        {{ $devotion->date->format('n / j / Y')}}
+                    </span>
+                    @if ($isToday)
+                        <span class="is-special-day today">Today</span>
+                    @elseif ($isYesterday)
+                        <span class="is-special-day yesterday">Yesterday</span>
+                    @endif
                 </span>
-                @if ($isToday)
-                    <span class="is-special-day today">Today</span>
-                @elseif ($isYesterday)
-                    <span class="is-special-day yesterday">Yesterday</span>
+                @if ($devotion->user)
+                    <x-inline-author :user="$devotion->user" />
                 @endif
             </p>
             @if ($hasIcons)

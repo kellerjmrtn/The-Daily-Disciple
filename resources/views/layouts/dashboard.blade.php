@@ -28,14 +28,14 @@
             <!-- Page Heading -->
             @isset($header)
                 <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    <div class="mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
             @endisset
 
             @if (session()->has('success'))
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div class="mx-auto sm:px-6 lg:px-8">
                     <div 
                         class="bubble m-5 mb-0 sm:mx-0 bg-green-100 text-green-700 p-4"
                         x-data="{ show: true }"

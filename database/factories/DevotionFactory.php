@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enum\Status;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -44,6 +45,7 @@ class DevotionFactory extends Factory
             'slug' => Str::slug($title),
             'is_recommended' => $this->faker->boolean(15),
             'view_count' => $this->faker->numberBetween(0, 20),
+            'user_id' => $this->faker->randomElement(User::all()),
         ];
     }
 }

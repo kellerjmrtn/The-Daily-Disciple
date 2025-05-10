@@ -15,19 +15,25 @@ class PermissionAndRoleSeeder extends Seeder
     {
         // Create roles
         $admin = Role::create(['name' => 'admin']);
+        $editor = Role::create(['name' => 'editor']);
 
         // Create permissions
         $devotionPerms = $this->resourcePermission('devotions');
 
         // Assign perms
         $admin->givePermissionTo($devotionPerms);
+        $editor->givePermissionTo([
+            'devotions.view.any',
+            'devotions.create',
+            'devotions.update.own',
+            'devotions.delete.own',
+        ]);
     }
 
     protected function resourcePermission(string $name): array
     {
         return [
             Permission::create(['name' => "$name.view.any"]),
-            Permission::create(['name' => "$name.view.own"]),
             Permission::create(['name' => "$name.create"]),
             Permission::create(['name' => "$name.update.any"]),
             Permission::create(['name' => "$name.update.own"]),

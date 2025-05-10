@@ -34,6 +34,7 @@ class UpdateDevotionRequest extends FormRequest
             'date' => ['required', 'date', Rule::unique(Devotion::class, 'date')->ignore($devotion)],
             'status' => ['required', Rule::in(['published', 'unpublished', 'draft'])],
             'is_recommended' => ['nullable', 'boolean'],
+            'user_id' => ['required', Rule::exists('users', 'id')],
         ]; 
     }
 

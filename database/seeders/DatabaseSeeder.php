@@ -13,13 +13,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(DevotionSeeder::class);
         $this->call(PermissionAndRoleSeeder::class);
 
         // Create admin user
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Test Admin',
+            'email' => 'admin@example.com',
         ])->assignRole('admin');
+
+        // Create editor user
+        User::factory()->create([
+            'name' => 'Test Editor',
+            'email' => 'editor@example.com',
+        ])->assignRole('editor');
+
+        $this->call(DevotionSeeder::class);
     }
 }

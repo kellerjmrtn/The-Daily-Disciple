@@ -148,8 +148,11 @@ const resize = (container) => {
         // Get titles container height
         const titlesContainerHeight = card.querySelector('.titles').offsetHeight;
 
-        // Set middle element margin
-        card.querySelector('.card-middle').style.marginTop = `calc(${height - titlesContainerHeight}px - 3rem)`;
+        // Get card top height
+        const cardTopHeight = card.querySelector('.card-top').offsetHeight;
+
+        // Set middle element margin - 2rem is for the padding of the card
+        card.querySelector('.card-middle').style.marginTop = `calc(${height - titlesContainerHeight - cardTopHeight}px - 2rem)`;
         
         // Add card listeners to create hover animations/effects
         const cardUpperContainer = card.querySelector('.card-upper');

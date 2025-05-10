@@ -47,7 +47,7 @@
         @enderror
     </div>
 
-    <div class="flex flex-col sm:flex-row gap-6 mb-6">
+    <div class="flex flex-col sm:flex-row gap-6 mb-4">
         <div>
             <label for="date" class="block text-gray-700 font-medium mb-2">Date</label>
             <input
@@ -68,7 +68,7 @@
             <select
                 id="status"
                 name="status"
-                class="w-full border-gray-300 rounded py-2 px-3"
+                class="w-full border-gray-300 rounded"
                 required
             >
                 @php $status = old('status', $devotion->status ?? ''); @endphp
@@ -92,6 +92,30 @@
                 class="rounded border-gray-300"
             />
             @error('is_recommended')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+    </div>
+
+    <div class="mb-4 flex">
+        <div>
+            <label for="user_id" class="block text-gray-700 font-medium mb-2">Author</label>
+            <select
+                id="user_id"
+                name="user_id"
+                class="w-full border-gray-300 rounded"
+                required
+            >
+                @foreach ($authors as $author)
+                    <option
+                        value="{{ $author->id }}"
+                        @if ($devotion->user_id === $author->id)selected @endif
+                    >
+                        {{ $author->name }}
+                    </option>
+                @endforeach
+            </select>
+            @error('user_id')
                 <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
             @enderror
         </div>

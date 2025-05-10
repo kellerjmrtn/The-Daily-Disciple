@@ -16,7 +16,7 @@
     </x-slot>
 
     <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-8xl mx-auto sm:px-6 lg:px-8">
             <div class="search-container mb-6 mx-5 sm:mx-0">
                 <form action="" method="GET" class="search-form">
                     <input
@@ -38,6 +38,7 @@
                             <tr class="bg-gray-50">
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Title</th>
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Subtitle</th>
+                                <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Author</th>
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Date</th>
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Status</th>
                                 <th class="text-left text-lg font-medium text-gray-900 py-3 px-4">Views</th>
@@ -64,6 +65,7 @@
                                 >
                                     <td class="py-3 px-4">{{ $devotion->title }}</td>
                                     <td class="py-3 px-4">{{ $devotion->subtitle }}</td>
+                                    <td class="py-3 px-4">{{ $devotion->user?->name }}</td>
                                     <td class="py-3 px-4">{{ $devotion->date->format('n/j/Y') }}</td>
                                     <td class="py-3 px-4">{{ $devotion->status }}</td>
                                     <td class="py-3 px-4">{{ $devotion->view_count }}</td>

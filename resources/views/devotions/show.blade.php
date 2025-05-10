@@ -30,6 +30,9 @@
                     @if ($devotion->subtitle)
                         <h2>{{ $devotion->subtitle }}</h2>
                     @endif
+                    @if ($devotion->user)
+                        <x-inline-author :user="$devotion->user" link />
+                    @endif
                     <div class="heading-border"></div>
                 </div>
 

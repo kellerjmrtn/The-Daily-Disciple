@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Devotion;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -76,6 +77,11 @@ class DevotionService
                 } catch (Throwable $e) {
                     // Do nothing
                 }
+
+                // Then apply author search
+                $inner->orWhereHas('user', function (Builder $whereHas) use ($search) {
+                    $whereHas->where('name', 'like', "%$search%");
+                });
             });
         })->orderBy('date', 'desc');
     }
@@ -96,6 +102,7 @@ class DevotionService
         $devotion->status = $data['status'];
         $devotion->is_recommended = $data['is_recommended'] ?? false;
         $devotion->slug = Str::slug($devotion->title);
+        $devotion->user_id = $data['user_id'];
 
         $devotion->save();
 
@@ -129,5 +136,25 @@ class DevotionService
             ->orderBy('date', 'desc')
             ->take($count)
             ->get();
+    }
+
+    /**
+     * If the User can edit any, give all users as potential authors. Otherwise, only allow the
+     * current devotion's author, or the User themselves as potential authors
+     *
+     * @param User $user
+     * @param Devotion|null $devotion
+     * @return iterable
+     */
+    public function getAvailableAuthorsFor(User $user, ?Devotion $devotion): iterable
+    {
+        if ($user->hasPermissionTo('devotions.update.any')) {
+            return User::all();
+        }
+
+        return collect([
+            optional($devotion)->user,
+            $user,
+        ])->filter()->unique('id');
     }
 }

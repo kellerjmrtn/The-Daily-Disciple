@@ -9,7 +9,7 @@
     }
 
     .headings {
-        margin-bottom: 3rem;
+        margin-bottom: 1.5rem;
 
         h1 {
             margin-bottom: 0.5rem;
@@ -54,6 +54,14 @@
                     display: block;
                 }
             }
+        }
+
+        .author-container {
+            font-size: 1rem;
+            color: rgb(94, 121, 128);
+            font-weight: 100;
+            letter-spacing: 0.5px;
+            margin-bottom: 1rem;
         }
     }
 
@@ -179,6 +187,10 @@
         .devotional-container {
             width: 90%;
             padding: 1rem 0;
+        }
+
+        .headings {
+            margin-bottom: 3rem;
         }
     }
 }
