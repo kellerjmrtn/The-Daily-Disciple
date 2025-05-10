@@ -39,7 +39,7 @@
                 <x-render-devotion class="devotional-text" :html="$devotion->content" />
             </div>
         </div>
-        @if (!empty($continueReading))
+        @if (count($continueReading))
             <div class="bubble-break fade-in-up">
                 <h2 class="break-heading martel">Continue Reading</h2>
             </div>
