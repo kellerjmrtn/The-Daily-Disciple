@@ -14,7 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // Trusting all proxies is not ideal, but ELB can change IPs, so this is easiest
         $middleware->trustProxies(
-            at: '*',
+            at: '0.0.0.0/0',
             headers: Request::HEADER_X_FORWARDED_AWS_ELB
         );
     })
