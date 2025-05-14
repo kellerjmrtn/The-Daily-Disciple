@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Traits;
 
 use App\Models\Devotion;
 use Illuminate\Contracts\Session\Session;
+use Jaybizzle\LaravelCrawlerDetect\Facades\LaravelCrawlerDetect;
 
 trait UpdatesViewCount
 {
@@ -22,6 +23,11 @@ trait UpdatesViewCount
      */
     protected function updateViewCount(Session $session, Devotion $devotion): bool
     {
+        // If the current user is a bot or crawler, ignore for view count purposes
+        if (LaravelCrawlerDetect::isCrawler()) {
+            return false;
+        }
+
         $viewCountKey = static::SESSION_KEY . ':' . $devotion->id;
 
         // If no view count has been stored, store one
