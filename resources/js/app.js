@@ -54,51 +54,64 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
+ * Toggle the given devotional cards on and off, and scroll the first one into view
+ */
+const toggleCards = (cards) => {
+    cards.forEach((singleCard) => {
+        singleCard.classList.toggle('toggled');
+    })
+
+    cards[0].scrollIntoView({
+        behavior: 'smooth',
+    });
+}
+
+/**
+ * Is the client mobile width or doesn't support hover effects?
+ */
+const isMobile = () => window.innerWidth < 1024 || !window.matchMedia('(hover: hover)');
+
+/**
+ * Apply click effects for the given devotional cards. All given cards will be toggled together.
+ * Click effects will do nothing on non-mobile devices, and link behavior will be observed 
+ */
+const applyCardClickEffects = (cards) => {
+    cards.forEach((card) => {
+        const readMore = card.querySelector('.read-more');
+
+        card.addEventListener('click', (e) => {
+            // If not mobile, no click effects are needed
+            if (!isMobile()) {
+                return;
+            }
+
+            // If the .read-more element was clicked on, or the card has not yet been toggled,
+            // toggle it. Otherwise, do nothing, and allow standard link behavior
+            if (readMore.contains(e.target) || !card.classList.contains('toggled')) {
+                e.preventDefault();
+
+                toggleCards(cards);
+            }
+        });
+    });
+};
+
+/**
  * Add devotional card "toggle" functionality. In sliders, toggling one slider toggles all cards in
- * the slider. Also adds "link" functionality to the "Read" button
+ * the slider. On mobile, clicking the card will first toggle the card. Then, when already toggled
+ * open, clicking the card will act as a link
  */
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.devotional-card-container.slider').forEach((slider) => {
         const cards = slider.querySelectorAll('.devotional-card');
 
-        cards.forEach((card) => {
-            card.querySelectorAll('.read-more').forEach((readMore) => {
-                readMore.addEventListener('click', (event) => {
-                    event.preventDefault();
-
-                    cards.forEach((singleCard) => {
-                        singleCard.classList.toggle('toggled');
-                    });
-    
-                    card.scrollIntoView({
-                        behavior: 'smooth',
-                    });
-                });
-            });
-        });
+        applyCardClickEffects(cards);
     });
 
     document.querySelectorAll('.devotional-card-container:not(.slider)').forEach((container) => {
         container.querySelectorAll('.devotional-card').forEach((card) => {
-            card.querySelectorAll('.read-more').forEach((readMore) => {
-                readMore.addEventListener('click', (event) => {
-                    event.preventDefault();
-    
-                    card.classList.toggle('toggled');
-
-                    card.scrollIntoView({
-                        behavior: 'smooth',
-                    });
-                });
-            });
-
-            card.querySelectorAll('.go-to-link').forEach((goToLink) => {
-                goToLink.addEventListener('click', () => {
-                    window.location = card.href;
-                });
-            });
+            applyCardClickEffects([card]);
         });
-
     });
 });
 
@@ -123,7 +136,7 @@ const resize = (container) => {
     allListeners = [];
 
     // If the browser is mobile or other non-hover devices, ensure all hover effects are removed
-    if (window.innerWidth < 1024 || !window.matchMedia('(hover: hover)')) {
+    if (isMobile()) {
         container.querySelectorAll('.devotional-card').forEach((card) => {
             card.style.removeProperty('height');
 
