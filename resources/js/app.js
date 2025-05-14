@@ -54,14 +54,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Toggle the given devotional cards on and off, and scroll the first one into view
+ * Toggle the given devotional cards on and off, and scroll the main card into view
  */
-const toggleCards = (cards) => {
+const toggleCards = (card, cards) => {
     cards.forEach((singleCard) => {
         singleCard.classList.toggle('toggled');
     })
 
-    cards[0].scrollIntoView({
+    card.scrollIntoView({
         behavior: 'smooth',
     });
 }
@@ -90,7 +90,7 @@ const applyCardClickEffects = (cards) => {
             if (readMore.contains(e.target) || !card.classList.contains('toggled')) {
                 e.preventDefault();
 
-                toggleCards(cards);
+                toggleCards(card, cards);
             }
         });
     });
