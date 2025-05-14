@@ -76,6 +76,7 @@ class DevotionController extends Controller
         return view('devotions.show', [
             'devotion' => $devotion,
             'continueReading' => $devotionService->getRelatedDevotionsFor($devotion),
+            'title' => $devotion->title . ' | ' . $devotion->date->format('F j, Y'),
         ]);
     }
 

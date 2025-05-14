@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title'){{ $devotion->date->format('F j, Y') }} | {{ $devotion->title }}@endsection
+@section('title'){{ $title }}@endsection
 
 @section('navLeft')
     <div class="nav-date">
