@@ -46,7 +46,7 @@
         
             @media screen and (min-width: 768px) {
                 margin-left: -1.5rem;
-                margin-right: calc(-1.5rem - 3rem);
+                margin-right: -1rem;
             }
         
             @media screen and (min-width: 1024px) {
@@ -74,7 +74,7 @@
     }
 
     .devotional-text > .verse-container:first-child {
-        margin-bottom: 3rem;
+        margin-bottom: 1rem;
     }
 
     h1,
@@ -187,10 +187,6 @@
         .devotional-container {
             width: 90%;
             padding: 1rem 0;
-        }
-
-        .headings {
-            margin-bottom: 3rem;
         }
     }
 }
