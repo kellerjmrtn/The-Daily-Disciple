@@ -1,66 +1,62 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<p align="center"><a href="https://thedailydisciple.net" target="_blank"><img src="https://www.thedailydisciple.net/assets/devotion-logo-large.png" width="250" alt="The Daily Disciple Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<h1 align="center">
+The Daily Disciple
+</h1>
 
-## About Laravel
+The Daily Disciple is a daily devotional for everyone located at https://www.thedailydisciple.net. Every day, we post a short passage that we hope uplifts and supports each reader in their journey through life.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Technical Details
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Code
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+For this project, I chose to use Laravel as it is highly customizable and I am deeply familiar with Laravel from my professional experience. Given that this is a simple blog site, a CMS would almost certainly have been a more streamlined solution, but I chose Laravel for practice, ease of customizability, and ultimately, an enjoyable developer experience
 
-## Learning Laravel
+Most of this project is super basic Laravel. A `Devotion` model, a `DevotionController` with basic CRUD methods, a `DevotionPolicy` for CRUD permissions, a few custom `Request` classes for form validation, simple Laravel Breeze authentication, and some custom JavaScript and CSS make up the majority of this project. There are however, a few highlights worth sharing
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Dependency Injection
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+When including a Bible verse, the site automatically generates a 3rd party link for it. For this, I've created a `VerseLinkGenerator` interface which is registered to an implementation in my `AppServiceProvider`. This way, I can easily swap out link generation logic with another implementation if necessary. Even if I never outright swap it to a brand new implementation, it forces link generation logic to stay separate, which increases cleanliness and maintainability
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Service Classes
 
-## Laravel Sponsors
+I like to keep my controllers as small as possible, and put logic in "service" classes, like the `DevotionService`. I then hand my controllers an instance of `DevotionService` to execute business logic. This has a few advantages
+1. Separation of concerns - the methods on my service classes take in as little input as necessary, do one thing, and return the result. This keeps my code from ballooning
+2. Reusability - later on down the line, I may want to reuse this logic in an API, or in a cron job, or any other non-web use case. If all my logic is separated, this is incredibly easy to do
+3. Testability - although this is a simple personal project and I haven't written any tests, I *love* testable code, and believe all code should be written with testability in mind. A (properly written) service class is so much easier to test than HTTP Controller logic
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Trusted Proxies
 
-### Premium Partners
+My stack includes both Cloudfront and an Elastic Load Balancer, which, as reverse proxies, overwrite the incoming request IP and append the previous IP to the `X-Forwarded-For` header. Laravel conveniently provides a `TrustProxies` middleware to handle this. However, the documented "trust all proxies" solution--using a `"*"`--only trusts a single proxy layer, while mine has two. After some googling, I found a solution--using `"0.0.0.0/0"` instead--which admittedly makes a lot of sense
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Design
 
-## Contributing
+I made this design up from scratch, to see what I could do. If I had to pick one element on the design that I'm most proud of, it would be the mobile version of the devotional cards. Here is a quick video demo 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Server & Hosting
 
-## Code of Conduct
+Given the Laravel stack, my two other requirements were
+1. AWS Hosted, and
+2. Low cost and simple
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+There are other lower cost products, and other lower cost architectures within AWS itself (particularly S3 + DynamoDB + Lambda), but the following solution was low cost *enough* that it works for me
 
-## Security Vulnerabilities
+### Stack
+1. Route 53 DNS
+2. Cloudfront
+3. Elastic Load Balancing
+4. EC2 (t2.micro)
+5. LAMP
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Perhaps most notably, I omitted RDS as a cost saving measure, and instead am running MariaDB on the EC2 itself. I figured this would be worth the effort for a simple personal project
 
-## License
+### EBS
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+How was I going to resolve the lack of RDS with the ephemeral nature of an EC2 Instance? I came up with the following solution:
+1. All data--including site files, MariaDB databases, and backups--is stored on a separate, non-root EBS volumne. This means I can terminate and instantiate a new EC2 instance, and not lose my data
+2. A nightly cron script runs a `mysqldump` and saves the output to the EBS. While not perfect, this is a satisfactorily strong backup policy for my use case
+3. I've created a custom AMI which contains preconfigured MariaDB, Apache, and PHP environments, the aforementioned cron configuration, and symlinks to the relevant data in the non-root EBS. This makes creating a new web server easier than I was even expecting. I simply must instantiate a new EC2 with the AMI, attach the EBS to it, and add it to the ELB's target group. Within a couple minutes, I can complely rebuild my environment. While this wouldn't fulfill professional uptime obligations, it's remarkably easy and low cost and is the perfect solution for me
+
+# Conclusion
+
+This was a fun project for me. As always, there are a million things I could've done better with more time, and if the project continues, maybe I'll get to do them! For now, I'm satisfied with what it is and proud of my work. Please check it out at https://www.thedailydisciple.net!
