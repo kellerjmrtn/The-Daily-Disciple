@@ -27,11 +27,13 @@ I like to keep my controllers as small as possible, and put logic in "service" c
 
 ### Trusted Proxies
 
-My stack includes both Cloudfront and an Elastic Load Balancer, which, as reverse proxies, overwrite the incoming request IP and append the previous IP to the `X-Forwarded-For` header. Laravel conveniently provides a `TrustProxies` middleware to handle this. However, the documented "trust all proxies" solution--using a `"*"`--only trusts a single proxy layer, while mine has two. After some googling, I found a solution--using `"0.0.0.0/0"` instead--which admittedly makes a lot of sense
+My stack includes both Cloudfront and an Elastic Load Balancer, which, as reverse proxies, overwrite the incoming request IP and append the previous IP to the `X-Forwarded-For` header. Laravel conveniently provides a `TrustProxies` middleware to handle this. However, the documented ["trust all proxies" solution](https://laravel.com/docs/12.x/requests#trusting-all-proxies)--using a `"*"`--only trusts a single proxy layer, while mine has two. After some googling, I found a solution--using `"0.0.0.0/0"` instead--which admittedly makes a lot of sense, can't believe I didn't think of it myself
 
 ### Design
 
 I made this design up from scratch, to see what I could do. If I had to pick one element on the design that I'm most proud of, it would be the mobile version of the devotional cards. Here is a quick video demo 
+
+https://github.com/user-attachments/assets/cd05a13d-cd62-4496-ab45-ca9d719c8120
 
 ## Server & Hosting
 
@@ -56,6 +58,14 @@ How was I going to resolve the lack of RDS with the ephemeral nature of an EC2 I
 1. All data--including site files, MariaDB databases, and backups--is stored on a separate, non-root EBS volumne. This means I can terminate and instantiate a new EC2 instance, and not lose my data
 2. A nightly cron script runs a `mysqldump` and saves the output to the EBS. While not perfect, this is a satisfactorily strong backup policy for my use case
 3. I've created a custom AMI which contains preconfigured MariaDB, Apache, and PHP environments, the aforementioned cron configuration, and symlinks to the relevant data in the non-root EBS. This makes creating a new web server easier than I was even expecting. I simply must instantiate a new EC2 with the AMI, attach the EBS to it, and add it to the ELB's target group. Within a couple minutes, I can complely rebuild my environment. While this wouldn't fulfill professional uptime obligations, it's remarkably easy and low cost and is the perfect solution for me
+
+### Cost
+While under the free first year of AWS, the only parts of this stack that incur costs are
+1. 2 Public IPs for the ELB
+2. $0.50/month for a single Route 53 hosted zone
+3. <$0.50/month for AMI snapshot storage
+
+For me, this solution was a great combination of using a technology that I wanted to practice and creating a real product, all while keeping costs very low
 
 # Conclusion
 
